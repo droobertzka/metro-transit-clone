@@ -1,11 +1,22 @@
 # TODO
 
-## Requirements
-[ ] - initialize, scaffolding / bootstrapping, minimal tooling setup
-[ ] - fulfill basic requirements
-[ ] - basic styling
-[ ] - component / unit tests
-[ ] - add client-side routing (if not included)
+## Functional Requirements
+[X] - Bus route data fetch & selection
+[X] - Direction data fetch & selection
+[X] - Stop data fetch & selection (added)
+[X] - Departure data fetch & selection (added)
+[ ] - Handle back & forward
+
+## High Level Plan
+[X] - init, add dependencies, set up dev server
+[X] - stub out basic HTML and CSS
+[X] - add vanilla JS fetching and DOM manipulation
+[ ] - add basic History API handling
+[ ] - add very basic tests
+[ ] - add prod build
+[ ] - initialize/scaffold framework
+[ ] - re-add functionality
+[ ] - clear form/state when selections change
 [ ] - README
 [ ] - refine styling
 

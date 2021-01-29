@@ -5,6 +5,7 @@ typography.injectStyles()
 
 const $message = document.querySelector('.message')
 const $selectRoute = document.getElementById('select-route')
+const $routeOption = $selectRoute.querySelector('option')
 const $selectDirection = document.getElementById('select-direction')
 const $directionOption = $selectDirection.querySelector('option')
 const $selectStop = document.getElementById('select-stop')
@@ -35,25 +36,44 @@ const makeOnLoadError = (itemsName) => (error) => {
     console.error(error)
     $message.classList.add('warning')
     $message.innerHTML = 
-        `There was an error loading ${itemsName}. Please <a href="/">refresh</a> and try again.`
+        `There was an error loading ${
+            itemsName
+        }. Please <a href="/">refresh</a> and try again.`
     $message.classList.remove('hidden')
+}
+
+const makeOnLoad = ({
+    $select,
+    $defaultOpt,
+    getVal,
+    getDesc,
+    onChange
+}) => (options) => {
+    $select.replaceChildren($defaultOpt)
+    options.forEach((option) => {
+        addOption($select, getVal(option), getDesc(option))
+    })
+
+    if (onChange) {
+        $select.onchange = onChange
+    }
+    $select.removeAttribute('disabled')
+    $select.classList.remove('hidden')
+    $message.classList.add('hidden')
 }
 
 const get = key => obj => obj[key]
 
 // Routes
-const onLoadRoutes = (routes) => {
-    routes.forEach(({ route_id, route_label }) => {
-        addOption($selectRoute, route_id, route_label)
-    })
-
-    $selectRoute.removeAttribute('disabled')
-    $message.classList.add('hidden')
-}
-
-const onSelectRoute = (event) => {
-    fetchDirections(event.target.value)
-}
+const onLoadRoutes = makeOnLoad({
+    $select: $selectRoute,
+    $defaultOpt: $routeOption,
+    getVal: get('route_id'),
+    getDesc: get('route_label'),
+    onChange(event) {
+        fetchDirections(event.target.value)
+    }
+})
 
 const fetchRoutes = () => {
     fetch(`${apiPath}/routes`, fetchOpts)
@@ -63,17 +83,15 @@ const fetchRoutes = () => {
 }
 
 // Directions
-const onLoadDirections = (routeId) => (directions) => {
-    $selectDirection.replaceChildren($directionOption)
-    directions.forEach(({ direction_id, direction_name }) => {
-        addOption($selectDirection, direction_id, direction_name)
-    })
-
-    $selectDirection.onchange = onSelectDirection(routeId)
-    $selectDirection.removeAttribute('disabled')
-    $selectDirection.classList.remove('hidden')
-    $message.classList.add('hidden')
-}
+const onLoadDirections = (routeId) => makeOnLoad({
+    $select: $selectDirection,
+    $defaultOpt: $directionOption,
+    getVal: get('direction_id'),
+    getDesc: get('direction_name'),
+    onChange(event) {
+        fetchStops(routeId, event.target.value)
+    }
+})
 
 const fetchDirections = (routeId) => {
     fetch(`${apiPath}/directions/${routeId}`, fetchOpts)
@@ -82,11 +100,17 @@ const fetchDirections = (routeId) => {
         .catch(makeOnLoadError('directions'))
 }
 
-const onSelectDirection = (routeId) => (event) => {
-    fetchStops(routeId, event.target.value)
-}
-
 // Stops
+const onLoadStops = (routeId, directionId) => makeOnLoad({
+    $select: $selectStop,
+    $defaultOpt: $stopOption,
+    getVal: get('place_code'),
+    getDesc: get('description'),
+    onChange(event) {
+        fetchDepartures(routeId, directionId, event.target.value)
+    }
+})
+
 const fetchStops = (routeId, directionId) => {
     fetch(`${apiPath}/stops/${routeId}/${directionId}`, fetchOpts)
         .then(parseResponse)
@@ -94,30 +118,7 @@ const fetchStops = (routeId, directionId) => {
         .catch(makeOnLoadError('stops'))
 }
 
-const onLoadStops = (routeId, directionId) => (stops) => {
-    $selectStop.replaceChildren($stopOption)
-    stops.forEach(({ place_code, description }) => {
-        addOption($selectStop, place_code, description)
-    })
-
-    $selectStop.onchange = onSelectStop(routeId, directionId)
-    $selectStop.removeAttribute('disabled')
-    $selectStop.classList.remove('hidden')
-    $message.classList.add('hidden')
-}
-
-const onSelectStop = (routeId, directionId) => (event) => {
-    fetchDepartures(routeId, directionId, event.target.value)
-}
-
 // Departures
-const fetchDepartures = (routeId, directionId, placeCode) => {
-    fetch(`${apiPath}/${routeId}/${directionId}/${placeCode}`)
-        .then(parseResponse)
-        .then(onLoadDepartures)
-        .catch(makeOnLoadError('departures'))
-}
-
 const onLoadDepartures = ({ stops, departures }) => {
     $departures.replaceChildren()
     const stop = stops && stops[0]
@@ -128,7 +129,9 @@ const onLoadDepartures = ({ stops, departures }) => {
 
     const { description, stop_id } = stop
     const $header = document.createElement('h2')
-    $header.innerHTML = `${description} <span class="stop-id">Stop #: ${stop_id}</span>`
+    $header.innerHTML = `${description} <span class="stop-id">Stop #: ${
+        stop_id
+    }</span>`
     $departures.appendChild($header)
 
     if (!departures || departures.length < 1) {
@@ -157,7 +160,13 @@ const onLoadDepartures = ({ stops, departures }) => {
     })
     $departures.appendChild($list)
 }
+const fetchDepartures = (routeId, directionId, placeCode) => {
+    fetch(`${apiPath}/${routeId}/${directionId}/${placeCode}`)
+        .then(parseResponse)
+        .then(onLoadDepartures)
+        .catch(makeOnLoadError('departures'))
+}
+
 
 // Init
 fetchRoutes()
-$selectRoute.onchange = onSelectRoute

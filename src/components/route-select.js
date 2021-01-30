@@ -1,16 +1,13 @@
 import {
-    $selectRoute,
-    $routeOption,
     makeOnLoad,
     makeOnLoadError
-} from '../shared/dom'
+} from '../shared/events'
 import { apiPath, fetchOpts, parseResponse } from '../shared/fetch-utils'
 import fetchAndRenderDirections from './direction-select'
 import get from '../shared/get'
 
 const onLoadRoutes = makeOnLoad({
-    $select: $selectRoute,
-    $defaultOpt: $routeOption,
+    name: 'route',
     getVal: get('route_id'),
     getDesc: get('route_label'),
     onChange: fetchAndRenderDirections

@@ -11,7 +11,7 @@
 [X] - init, add dependencies, set up dev server
 [X] - stub out basic HTML and CSS
 [X] - add vanilla JS fetching and DOM manipulation
-[ ] - add basic History API handling
+[X] - add basic History API handling
 [ ] - add very basic tests
 [ ] - add prod build
 [ ] - initialize/scaffold framework

@@ -83,7 +83,7 @@ section h2 {
     clip: rect(0, 0, 0, 0);
 }
 
-.hidden {
+.hidden, select[disabled] {
     display: none;
 }
 

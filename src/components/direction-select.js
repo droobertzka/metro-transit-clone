@@ -1,16 +1,13 @@
 import {
-    $selectDirection,
-    $directionOption,
     makeOnLoad,
     makeOnLoadError
-} from '../shared/dom'
+} from '../shared/events'
 import { apiPath, fetchOpts, parseResponse } from '../shared/fetch-utils'
 import fetchAndRenderStops from './stop-select'
 import get from '../shared/get'
 
 const onLoadDirections = (routeId) => makeOnLoad({
-    $select: $selectDirection,
-    $defaultOpt: $directionOption,
+    name: 'direction',
     getVal: get('direction_id'),
     getDesc: get('direction_name'),
     onChange: fetchAndRenderStops.bind(null, routeId)

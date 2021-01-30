@@ -1,4 +1,5 @@
-import { $departures, makeOnLoadError } from '../shared/dom'
+import { makeOnLoadError } from '../shared/events'
+import { $departures } from '../shared/elements'
 import { apiPath, fetchOpts, parseResponse } from '../shared/fetch-utils'
 
 const onLoadDepartures = ({ stops, departures }) => {

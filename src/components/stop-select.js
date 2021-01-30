@@ -1,16 +1,13 @@
 import {
-    $selectStop,
-    $stopOption,
     makeOnLoad,
     makeOnLoadError
-} from '../shared/dom'
+} from '../shared/events'
 import { apiPath, fetchOpts, parseResponse } from '../shared/fetch-utils'
 import fetchAndRenderDepartures from './departures'
 import get from '../shared/get'
 
 const onLoadStops = (routeId, directionId) => makeOnLoad({
-    $select: $selectStop,
-    $defaultOpt: $stopOption,
+    name: 'stop',
     getVal: get('place_code'),
     getDesc: get('description'),
     onChange: fetchAndRenderDepartures.bind(null, routeId, directionId)

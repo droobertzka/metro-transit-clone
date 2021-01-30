@@ -52,7 +52,12 @@ export const makeOnLoad = ({
         addOption($select, getVal(option), getDesc(option))
     })
 
-    $select.onchange = onChange
+    $select.onchange = (event) => {
+        // if default option is selected, do nothing
+        if (!event.target.value) return
+
+        onChange(event.target.value)
+    }
     $select.removeAttribute('disabled')
     $select.classList.remove('hidden')
     $message.classList.add('hidden')

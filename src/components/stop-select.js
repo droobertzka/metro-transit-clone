@@ -13,9 +13,7 @@ const onLoadStops = (routeId, directionId) => makeOnLoad({
     $defaultOpt: $stopOption,
     getVal: get('place_code'),
     getDesc: get('description'),
-    onChange(event) {
-        fetchAndRenderDepartures(routeId, directionId, event.target.value)
-    }
+    onChange: fetchAndRenderDepartures.bind(null, routeId, directionId)
 })
 
 export default (routeId, directionId) => {

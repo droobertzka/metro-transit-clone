@@ -13,9 +13,7 @@ const onLoadRoutes = makeOnLoad({
     $defaultOpt: $routeOption,
     getVal: get('route_id'),
     getDesc: get('route_label'),
-    onChange(event) {
-        fetchAndRenderDirections(event.target.value)
-    }
+    onChange: fetchAndRenderDirections
 })
 
 export default () => {

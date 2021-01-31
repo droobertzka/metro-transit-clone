@@ -37,11 +37,25 @@ const updatePath = state => fields.reduce((acc, curr) => {
 /** Makes an onChange handler for a <select> with the given name */
 const makeOnChange = (name, onChange) => ({ preventPush, target }) => {
     const { value } = target
-    const reverseFields = fields.concat().reverse()
-    const fieldsToKeep = reverseFields.splice(reverseFields.indexOf(name))
-    fields.filter(field => !fieldsToKeep.includes(field)).forEach(
+    const fieldsToHide = fields.concat().reverse()
+    const lastField = fieldsToHide[0]
+    const fieldsToKeep = fieldsToHide.splice(fieldsToHide.indexOf(name))
+
+    // Disable <select> fields dependent on changed one
+    fieldsToHide.forEach(
         (field) => formElements[field].$select.disabled = true
     )
+
+    // If the last <select> is cleared, clear the departures list
+    if (
+        $departures.children.length > 0 && (
+            (name === lastField && !value)
+            || fieldsToHide.includes(lastField)
+        )
+    ) {
+        $departures.replaceChildren()
+    }
+
     if (!value) return
 
     if (!preventPush) {
@@ -117,9 +131,7 @@ const updateFieldIfStateChanged = ([name, newValue]) => {
 
 /** Update the DOM to reflect state when user navigates back/forward */
 export const onPopState = ({ state }) => {
-    // FIXME: buggy when changing route after all 3 selects are filled out
+    // FIXME: bug w/ route <select> change after all 3 selects are filled out
     const withDefaults = Object.assign({ route: '', direction: '', stop: '' }, state)
     Object.entries(withDefaults).forEach(updateFieldIfStateChanged)
-
-    $departures.replaceChildren()
 }

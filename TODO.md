@@ -14,10 +14,10 @@
 [X] - add basic History API handling
 [X] - clear form/state when selections change
 [X] - add prod build
-[ ] - add very basic tests
+[X] - add very basic tests
+[ ] - README
 [ ] - initialize/scaffold framework
 [ ] - re-add functionality
-[ ] - README
 [ ] - refine styling
 
 ## Stretch goals

@@ -57,5 +57,5 @@ export const onPopState = ({ state }) => {
         return fetchAndPopulate(match)
     })
 
-    Promise.all(fetches).then(updateForm)
+    return Promise.all(fetches).then(updateForm)
 }

@@ -1,22 +1,22 @@
-// This is now a History state module
-import { updateForm } from '../components'
-import { NAME as departuresName } from '../components/departures'
+import { formElements, updateForm } from '../components'
 import { fetchAndPopulate } from './fetch'
+
+const names = formElements.map(({ NAME }) => NAME)
 
 /**
  * Creates new History state, given name of form field, new value, and which
  * fields to keep from current state
  */
-const updateState = (name, value, fieldNames) => {
+const updateState = (name, value) => {
     if (!history.state) {
         return { [name]: value }
     }
 
     // Copy then mutate
-    const fieldsToKeep = fieldNames.concat()
-    fieldsToKeep.splice(fieldNames.indexOf(name) + 1)
-    const lastFormElementName = fieldNames[names.length - 1]
-    const initState = fieldsToKeep.length === fieldNames.length - 1
+    const fieldsToKeep = names.concat()
+    fieldsToKeep.splice(names.indexOf(name) + 1)
+    const lastFormElementName = names[names.length - 1]
+    const initState = fieldsToKeep.length === names.length - 1
         ? { [lastFormElementName]: true }
         : {}
 
@@ -31,17 +31,17 @@ const updateState = (name, value, fieldNames) => {
 }
 
 /** Creates an updated path for History, given the state */
-const updatePath = (state, fieldNames) => fieldNames.reduce((acc, curr) => {
-    return state[curr] && curr !== departuresName ? acc + `/${state[curr]}` : acc
+const updatePath = (state) => names.reduce((acc, curr, i) => {
+    return state[curr] && i !== names.length - 1 ? acc + `/${state[curr]}` : acc
 }, '')
 
 /**
  * Pushes new state to History given the name and value of what changed and a
  * list of all the form elements
  */
-export const pushState = (name, value, fieldNames) => {
-    const state = updateState(name, value, fieldNames)
-    const path = updatePath(state, fieldNames)
+export const pushState = (name, value) => {
+    const state = updateState(name, value)
+    const path = updatePath(state)
     history.pushState(state, undefined, path)
 }
 
@@ -52,6 +52,10 @@ export const onPopState = ({ state }) => {
         return
     }
 
-    const fetches = Object.keys(state).map((name) => fetchAndPopulate(name))
+    const fetches = Object.keys(state).map((name) => {
+        const match = formElements.find(({ NAME }) => NAME === name)
+        return fetchAndPopulate(match)
+    })
+
     Promise.all(fetches).then(updateForm)
 }

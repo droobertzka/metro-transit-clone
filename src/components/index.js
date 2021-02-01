@@ -2,15 +2,16 @@ import * as routes from './route-select'
 import * as directions from './direction-select'
 import * as stops from './stop-select'
 import * as departures from './departures'
+import addSelectMixins from './select-mixins'
 
 export const $message = document.querySelector('.message')
 
-export const formElements = { 
-    [routes.NAME]: routes,
-    [directions.NAME]: directions,
-    [stops.NAME]: stops,
-    [departures.NAME]: departures
-}
+export const formElements = addSelectMixins([
+    routes,
+    directions,
+    stops,
+    departures
+])
 
 export const updateField = (field, isHidden) => {
     const { $defaultOption, $el, NAME } = field

@@ -1,4 +1,4 @@
-import { formElements, $message, updateField } from '../components'
+import { $message, updateField } from '../components'
 
 const API_PATH = '/nextripv2'
 
@@ -24,8 +24,7 @@ const makeOnLoadError = (name) => (error) => {
 }
 
 /** Fetches data for a form element and populates it in the DOM */
-export const fetchAndPopulate = (name) => {
-    const formElement = formElements[name]
+export const fetchAndPopulate = (formElement) => {
     const path = `${API_PATH}/${formElement.getPath(history.state)}`
 
     return fetch(path, fetchOpts)
@@ -34,5 +33,5 @@ export const fetchAndPopulate = (name) => {
         .then(() => {
             updateField(formElement)
         })
-        .catch(makeOnLoadError(name))
+        .catch(makeOnLoadError(formElement.NAME))
 }

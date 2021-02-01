@@ -1,9 +1,9 @@
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-	mode: 'development',
-	devtool: 'eval-cheap-module-source-map',
 	plugins: [
+        new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			template: 'src/index.html'
 		})
@@ -21,16 +21,5 @@ module.exports = {
 				]
 			}
 		]
-	},
-	devServer: {
-		host: 'localhost',
-		hot: true,
-		proxy: {
-			'/nextripv2': {
-				target: 'https://svc.metrotransit.org',
-				secure: false,
-				changeOrigin: true
-			}
-		}
 	}
 }

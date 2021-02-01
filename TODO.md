@@ -12,11 +12,11 @@
 [X] - stub out basic HTML and CSS
 [X] - add vanilla JS fetching and DOM manipulation
 [X] - add basic History API handling
+[X] - clear form/state when selections change
+[X] - add prod build
 [ ] - add very basic tests
-[ ] - add prod build
 [ ] - initialize/scaffold framework
 [ ] - re-add functionality
-[ ] - clear form/state when selections change
 [ ] - README
 [ ] - refine styling
 

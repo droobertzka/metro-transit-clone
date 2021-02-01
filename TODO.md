@@ -15,7 +15,7 @@
 [X] - clear form/state when selections change
 [X] - add prod build
 [X] - add very basic tests
-[ ] - README
+[X] - README
 [ ] - initialize/scaffold framework
 [ ] - re-add functionality
 [ ] - refine styling

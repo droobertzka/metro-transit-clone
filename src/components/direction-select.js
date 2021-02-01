@@ -1,21 +1,15 @@
-import {
-    makeOnLoad,
-    makeOnLoadError
-} from '../shared/events'
-import { apiPath, fetchOpts, parseResponse } from '../shared/fetch-utils'
-import fetchAndRenderStops from './stop-select'
-import get from '../shared/get'
+import makeRender from './populate-select'
 
-const onLoadDirections = (routeId) => makeOnLoad({
-    name: 'direction',
-    getVal: get('direction_id'),
-    getDesc: get('direction_name'),
-    onChange: fetchAndRenderStops.bind(null, routeId)
-})
+export const NAME = 'directions'
 
-export default (routeId) => {
-    fetch(`${apiPath}/directions/${routeId}`, fetchOpts)
-        .then(parseResponse)
-        .then(onLoadDirections(routeId))
-        .catch(makeOnLoadError('directions'))
-}
+export const $el = document.getElementById('select-direction')
+
+export const $defaultOption = $el.querySelector('option')
+
+export const valKey = 'direction_id'
+
+export const descKey = 'direction_name'
+
+export const getPath = ({ routes }) => `${NAME}/${routes}`
+
+export const render = makeRender(NAME)

@@ -1,9 +1,9 @@
 import styles from './styles.css'
 import typography from './typography'
-import fetchAndRenderRoutes from './components/route-select'
-import { onPopState } from './shared/events'
+import { onPopState } from './utils/history'
+import { fetchAndPopulate } from './utils/fetch'
+import { NAME as routeSelectName } from './components/route-select'
 
 typography.injectStyles()
-fetchAndRenderRoutes()
-
+fetchAndPopulate(routeSelectName)
 window.onpopstate = onPopState

@@ -1,6 +1,10 @@
-import { makeOnLoadError } from '../shared/events'
-import { $departures } from '../shared/elements'
-import { apiPath, fetchOpts, parseResponse } from '../shared/fetch-utils'
+export const NAME = 'departures'
+
+export const $el = document.querySelector('section')
+
+export const getPath = ({ routes, directions, stops }) => {
+    return `${routes}/${directions}/${stops}`
+}
 
 const populateDeparture = ($list) => (departure) => {
     const {
@@ -21,8 +25,8 @@ const populateDeparture = ($list) => (departure) => {
     $list.appendChild($item)
 }
 
-const onLoadDepartures = ({ stops, departures }) => {
-    $departures.replaceChildren() // Admittedly not cross-compatible
+export const render = ({ stops, departures }) => {
+    $el.replaceChildren() // Admittedly not cross-compatible
     const stop = stops && stops[0]
     const $header = document.createElement('h2')
     if (!stop) {
@@ -35,7 +39,7 @@ const onLoadDepartures = ({ stops, departures }) => {
     $header.innerHTML = `${description} <span class="stop-id">Stop #: ${
         stop_id
     }</span>`
-    $departures.appendChild($header)
+    $el.appendChild($header)
 
     const $list = document.createElement('ul')
     if (departures && departures.length > 0) {
@@ -44,15 +48,8 @@ const onLoadDepartures = ({ stops, departures }) => {
         const $item = document.createElement('li')
         $item.innerText = 'No departures at this time'
         $list.appendChild($item)
-        $departures.appendChild($list)
+        $el.appendChild($list)
     }
 
-    $departures.appendChild($list)
-}
-
-export default (routeId, directionId, placeCode) => {
-    fetch(`${apiPath}/${routeId}/${directionId}/${placeCode}`, fetchOpts)
-        .then(parseResponse)
-        .then(onLoadDepartures)
-        .catch(makeOnLoadError('departures'))
+    $el.appendChild($list)
 }

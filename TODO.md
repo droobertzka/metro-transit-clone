@@ -5,7 +5,7 @@
 [X] - Direction data fetch & selection
 [X] - Stop data fetch & selection (added)
 [X] - Departure data fetch & selection (added)
-[ ] - Handle back & forward
+[X] - Handle back & forward
 
 ## High Level Plan
 [X] - init, add dependencies, set up dev server

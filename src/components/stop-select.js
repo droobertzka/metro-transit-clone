@@ -1,21 +1,17 @@
-import {
-    makeOnLoad,
-    makeOnLoadError
-} from '../shared/events'
-import { apiPath, fetchOpts, parseResponse } from '../shared/fetch-utils'
-import fetchAndRenderDepartures from './departures'
-import get from '../shared/get'
+import makeRender from './populate-select'
 
-const onLoadStops = (routeId, directionId) => makeOnLoad({
-    name: 'stop',
-    getVal: get('place_code'),
-    getDesc: get('description'),
-    onChange: fetchAndRenderDepartures.bind(null, routeId, directionId)
-})
+export const NAME = 'stops'
 
-export default (routeId, directionId) => {
-    fetch(`${apiPath}/stops/${routeId}/${directionId}`, fetchOpts)
-        .then(parseResponse)
-        .then(onLoadStops(routeId, directionId))
-        .catch(makeOnLoadError('stops'))
+export const $el = document.getElementById('select-stop')
+
+export const $defaultOption = $el.querySelector('option')
+
+export const valKey = 'place_code'
+
+export const descKey = 'description'
+
+export const getPath = ({ routes, directions }) => {
+    return `${NAME}/${routes}/${directions}`
 }
+
+export const render = makeRender(NAME)

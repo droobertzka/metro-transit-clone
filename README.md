@@ -27,13 +27,18 @@ $ npm start
 ```
 
 ## Not Implemented
-TBD
+* Unit/component tests
+* Cron job to update static build (i.e. API responses)?
+* Better UX (e.g. skeleton / shimmer effect during loading)
 
 ## The Good
-TBD
+* Very fast to get up and running
+* Much easier to organize and structure
+* Far more scalable
 
 ## The Bad
-TBD
+* Overhead of learning Next.js
+* Necessarily limited by opinionated framework
 
 ## Next.js Resources
 * [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.

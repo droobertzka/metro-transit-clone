@@ -17,11 +17,11 @@
 [X] - add very basic tests
 [X] - README
 [X] - install/initialize/scaffold framework
-[ ] - re-add functionality
-[ ] - refine styling
+[X] - re-add functionality
+[X] - refine styling
 [ ] - new tests
 
 ## Stretch goals
 [ ] - end-to-end testing suite
-[ ] - SSG and/or SSR
+[X] - SSG and/or SSR
 [ ] - PWA and/or basic client-side caching

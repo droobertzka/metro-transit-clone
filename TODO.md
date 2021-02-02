@@ -19,9 +19,8 @@
 [X] - install/initialize/scaffold framework
 [X] - re-add functionality
 [X] - refine styling
-[ ] - new tests
 
 ## Stretch goals
-[ ] - end-to-end testing suite
+[X] - end-to-end testing suite
 [X] - SSG and/or SSR
 [ ] - PWA and/or basic client-side caching

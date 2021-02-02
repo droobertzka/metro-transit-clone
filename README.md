@@ -10,8 +10,12 @@ $ npm run dev
 ```
 
 ## Testing
-Unit tests use [jest](https://jestjs.io/)
+End-to-end tests use [Cypress.io](https://docs.cypress.io/)
 ```
+# To open the interactive Cypress app:
+$ npm run cy:open
+
+# To run headless (captures videos):
 $ npm test
 ```
 

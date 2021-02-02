@@ -4,10 +4,11 @@
   "description": "metrotransit.org/nextrip clone",
   "private": true,
   "scripts": {
+    "cy:open": "cypress open",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest"
+    "test": "cypress run"
   },
   "repository": {
     "type": "git",
@@ -25,15 +26,6 @@
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
-    "jest": "^26.6.3",
-    "jest-fetch-mock": "^3.0.3"
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "\\.css$": "<rootDir>/__mocks__/styleMock.js"
-    },
-    "setupFiles": [
-      "<rootDir>/setupTests.js"
-    ]
+    "cypress": "^6.4.0"
   }
 }

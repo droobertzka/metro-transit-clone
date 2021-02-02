@@ -16,9 +16,10 @@
 [X] - add prod build
 [X] - add very basic tests
 [X] - README
-[ ] - initialize/scaffold framework
+[X] - install/initialize/scaffold framework
 [ ] - re-add functionality
 [ ] - refine styling
+[ ] - new tests
 
 ## Stretch goals
 [ ] - end-to-end testing suite

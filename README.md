@@ -1,12 +1,12 @@
 # metro-transit-clone
-A basic clone of the Metro Transit NexTrip web app.
+A basic clone of the Metro Transit NexTrip web app bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
-To get started with development, run the following commands to install dependencies and start up a local dev server. A proxy is configured to reroute `/nextripv2` requests to the Metro Transit API.
+To get started with development, run the following commands to install dependencies and start up a local dev server. Performance during development is not as good as a prod build because SSG requests are made every time. This is by design with Next.js.
 ```
 $ git clone https://github.com/droobertzka/metro-transit-clone.git
 $ npm install
-$ npm start
+$ npm run dev
 ```
 
 ## Testing
@@ -15,24 +15,22 @@ Unit tests use [jest](https://jestjs.io/)
 $ npm test
 ```
 
-## Build
-[Webpack](https://webpack.js.org/concepts/) is used for both a development server (with source maps) and a production build. Deployable, static asset output is placed into a `dist` folder.
+## Production Build
+After running a build, deploy the entire `.next` output folder into a Node server and run `npm start`.
 ```
 $ npm run build
+$ npm start
 ```
 
 ## Not Implemented
-* Server: this is only the front end, and assumes it will be deployed to a server which will serve the static files and pass api requests through to the Metro Transit API (and back)
-* Full fledged routing: direct navigation to anywhere other than the index will not work
+TBD
 
 ## The Good
-* None of the overhead (e.g. maintenance, learning, bundle size) of a framework
-* Breaking out of the framework box is novel/fun
-* Getting back to basics and reimmersing in native browser tech
-* Demonstrates competencies in core libraries like webpack and jest
+TBD
 
 ## The Bad
-* Interacting with the DOM natively presents unique challenges:
-    * Code is difficult to organize compared to frameworks with components
-    * Difficult to test
-* If scaled up, a framework would eventually be needed anyway
+TBD
+
+## Next.js Resources
+* [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+* [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.

@@ -193,7 +193,7 @@ export async function getStaticProps(context) {
   }
 
   let initStops = []
-  if (selectedDirection) {
+  if (selectedRoute && selectedDirection) {
     try {
       initStops = await fetchStops(selectedRoute, selectedDirection)
     } catch (e) {
